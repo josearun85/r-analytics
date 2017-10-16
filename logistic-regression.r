@@ -1,6 +1,7 @@
 library(car)
+library(MASS)
 # Import data - logistic_case_study.csv
-data<-read.csv("/data/florence.csv")
+data<-read.csv("data/florence.csv")
 
 #Split your dataset
 set.seed(110)
@@ -68,8 +69,6 @@ training$prob<-predict(fit_step_2,type="response")
 testing$prob<-predict(fit_step_2,newdata=testing,
                       type="response")
 
-# Somer's D statistic
-Concordance(fit_step_2)
 
 # Plotting probabilities
 plot(training$prob,training$Florence)
