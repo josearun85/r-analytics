@@ -1,8 +1,9 @@
 #Read data
-mydata<-read.csv(file.choose())
+mydata<-read.csv("data/house_prices.csv")
 
 # Load necessary libraries
 library(car)
+library(MASS)
 attach(mydata)
 
 # Scatter plot matrix
@@ -20,7 +21,7 @@ boxplot(Price~Brick)
 
 # Create dummy variables
 
-mydata$brick_d<-ifelse(mydata$Brick=="Yes",1,0)
+mydata$brick_d<-ifelse(mydata$Brick=="yes",1,0)
 mydata$east<-ifelse(mydata$Neighborhood=="East",1,0)
 mydata$north<-ifelse(mydata$Neighborhood=="North",1,0)
 
@@ -64,7 +65,6 @@ hist(residuals(fits1))
 hist(residuals(fit2))
 hist(residuals(fits2),breaks=15)
 hist(residuals(fit3),breaks=15)
-?hist
 
 plot(predict(fit1),residuals(fit1))
 plot(predict(fits1),residuals(fits1))
@@ -82,6 +82,8 @@ plot(predict(fit3),train_out$Price)
 #Validation scoring
 testing$pred2<-predict(fit2,newdata=testing)
 testing$res2<-testing$pred2-testing$Price
+testing$pred3<-predict(fit3,newdata=testing)
+testing$res3<-testing$pred3-testing$Price
 
 #Compare performance
 cor(train_out$Price,predict(fit2))
